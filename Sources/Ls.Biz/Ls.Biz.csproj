@@ -68,6 +68,10 @@
     <Compile Include="ls_module.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ls.Cache\Ls.Cache.csproj">
+      <Project>{b92a9b59-4f8a-4d11-bea4-88ecbcfeaae5}</Project>
+      <Name>Ls.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ls.Common\Ls.Common.csproj">
       <Project>{d1de6698-bfd6-4651-a916-027b60566f2b}</Project>
       <Name>Ls.Common</Name>
