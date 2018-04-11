@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ls.Web", "Ls.Web\Ls.Web.csproj", "{5984C43F-C86D-4F16-9E09-4F2B3E85AD8E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ls.Models", "Ls.Models\Ls.Models.csproj", "{84F38DC7-CEAF-42CF-838E-2517509AAE6F}"
@@ -40,5 +42,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0AF5B8E6-80E7-4C65-9B83-2A79B7BF3A2B}
 	EndGlobalSection
 EndGlobal
