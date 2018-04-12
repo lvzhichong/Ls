@@ -33,8 +33,8 @@
                     <td>@Html.SpanText(user.is_approved ? "允许" : "不允许", user.is_approved ? MvcExtensions.SpanLevel.Success : MvcExtensions.SpanLevel.Danger)</td>
                     <td>@Html.SpanText(user.is_lock ? "锁定" : "未锁定", user.is_lock ? MvcExtensions.SpanLevel.Danger : MvcExtensions.SpanLevel.Success)</td>
                     <td>@(user.is_lock && user.lock_date != null ? user.lock_date.Value.ToString(Ls.Common.DateFormat.Date_Format_String_1) : "")</td>
-                    <td>@user.modify_date.ToString(Ls.Common.DateFormat.Date_Format_String_1)</td>
-                    <td>@user.last_login_date.ToString(Ls.Common.DateFormat.Date_Format_String_1)</td>
+                    <td>@user.modify_date.GetValueOrDefault().ToString(Ls.Common.DateFormat.Date_Format_String_1)</td>
+                    <td>@user.last_login_date.GetValueOrDefault().ToString(Ls.Common.DateFormat.Date_Format_String_1)</td>
                     <td>
                         <a href="javascript:;" onclick="edit_user('编辑用户','/User/EditUser?user_id=@user.user_id','800','430')"><i class="Hui-iconfont" title="编辑"></i></a>
                         &nbsp;&nbsp;|&nbsp;&nbsp;<a id="delete" href="javascript:del_user('@user.user_id');"><i class="Hui-iconfont" title="删除"></i></a>

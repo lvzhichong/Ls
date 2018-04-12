@@ -43,34 +43,40 @@ namespace Ls.Models
         /// 是否已删除
         /// </summary>
         [Display(Name = "是否已删除")]
+        [Newtonsoft.Json.JsonIgnore]
         public bool IsDelete { get; set; }
 
         /// <summary>
         /// 排序
         /// </summary>
         [Display(Name = "排序")]
+        [Newtonsoft.Json.JsonIgnore]
         public int Ordinal { get; set; }
 
         /// <summary>
         /// 修改时间
         /// </summary>
+        [Newtonsoft.Json.JsonIgnore]
         private DateTime _CreateDate = DateTime.Now;
 
         /// <summary>
         /// 创建时间
         /// </summary>
         [Display(Name = "创建时间")]
+        [Newtonsoft.Json.JsonIgnore]
         public DateTime CreateDate { get { return _CreateDate; } set { _CreateDate = value; } }
 
         /// <summary>
         /// 修改时间
         /// </summary>
+        [Newtonsoft.Json.JsonIgnore]
         private DateTime _ModifyDate = DateTime.Now;
 
         /// <summary>
         /// 修改时间
         /// </summary>
         [Display(Name = "修改时间")]
+        [Newtonsoft.Json.JsonIgnore]
         public DateTime ModifyDate { get { return DateTime.Now; } set { _ModifyDate = value; } }
     }
 }

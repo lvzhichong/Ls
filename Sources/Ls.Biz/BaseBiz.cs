@@ -32,7 +32,7 @@ namespace Ls.Biz
         /// <param name="pageIndex">第几页（必填）</param>
         /// <param name="totalRow">总行数（必填）</param>
         /// <returns>List</returns>
-        public IEnumerable<VD> GetObjects<DDKey>(Expression<Func<DD, bool>> predicate, Expression<Func<DD, DDKey>> keySelector, bool isDesc, int pageIndex, int pageSize, out int totalRow)
+        public IEnumerable<VD> GetObjects<DDKey>(Expression<Func<DD, bool>> predicate, Expression<Func<DD, DDKey>> keySelector, bool isDesc, int pageIndex, int pageSize, out int totalRow, string redis_count_key = "", string redis_query_key = "")
         {
             totalRow = 0;
 
@@ -49,11 +49,35 @@ namespace Ls.Biz
                     {
                         query = query.Where(predicate).AsQueryable();
                     }
-                    // TotalCount
-                    totalRow = query.Count();
+
+                    if (!string.IsNullOrEmpty(redis_count_key))
+                    {
+                        int? count = Ls.Cache.redis_manager.Instance.get_value<int?>(redis_count_key);
+
+                        if (count == null)
+                        {
+                            totalRow = query.Count();
+
+                            Ls.Cache.redis_manager.Instance.set_value(redis_count_key, totalRow);
+                        }
+                        else
+                        {
+                            totalRow = count.GetValueOrDefault();
+                        }
+                    }
 
                     if (totalRow > 0)
                     {
+                        if (!string.IsNullOrEmpty(redis_query_key))
+                        {
+                            IEnumerable<VD> redis_datas = Ls.Cache.redis_manager.Instance.get_values<VD>(redis_query_key);
+
+                            if (redis_datas != null)
+                            {
+                                return redis_datas;
+                            }
+                        }
+
                         // 排序
                         if (isDesc)
                         {
@@ -73,6 +97,8 @@ namespace Ls.Biz
                             // 数据转化
                             datas.Add(Mapper.Map<DD, VD>(data));
                         }
+
+                        Ls.Cache.redis_manager.Instance.set_values(redis_query_key, datas);
                     }
                 }
             }
@@ -461,6 +487,28 @@ namespace Ls.Biz
                 adapter.Fill(table);
             }
             return table;
+        }
+
+        /// <summary>
+        /// md5值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string EncryptWithMD5(string value)
+        {
+            byte[] sor = Encoding.UTF8.GetBytes(value);
+            System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] result = md5.ComputeHash(sor);
+
+            StringBuilder strbul = new StringBuilder(40);
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                // 加密结果"x2"结果为32位,"x3"结果为48位,"x4"结果为64位
+                strbul.Append(result[i].ToString("x2"));
+            }
+
+            return strbul.ToString();
         }
     }
 

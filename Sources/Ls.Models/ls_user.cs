@@ -78,15 +78,15 @@ namespace Ls.Models
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime create_date { get; set; }
+        public DateTime? create_date { get; set; }
         /// <summary>
         /// 修改时间
         /// </summary>
-        public DateTime modify_date { get; set; }
+        public DateTime? modify_date { get; set; }
         /// <summary>
         /// last_login_date
         /// </summary>
-        public DateTime last_login_date { get; set; }
+        public DateTime? last_login_date { get; set; }
         /// <summary>
         /// 是否已删除，默认 0
         /// </summary>
