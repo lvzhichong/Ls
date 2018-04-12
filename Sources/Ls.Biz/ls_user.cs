@@ -73,7 +73,7 @@ namespace Ls.Biz
                 // 排序
                 Expression<Func<ls_user, int>> orderby = r => r.user_id;
 
-                // 传入redis_key
+                // 传入redis_key 需要重新刷新时，不传该值
                 string count_key = string.Format("ls_user-count-{0}", EncryptWithMD5(string.Format("{0}", Common.JsonHelper.Serialize(model))));
                 string query_key = string.Format("ls_user-query-{0}", EncryptWithMD5(string.Format("{0}{1}{2}{3}", Common.JsonHelper.Serialize(model), pageIndex, pageSize, totalCount)));
 
