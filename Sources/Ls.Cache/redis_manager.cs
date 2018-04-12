@@ -47,7 +47,7 @@ namespace Ls.Cache
             }
             catch (Exception ex)
             {
-                Common.Logger.Error("开启trs连接出错，ERROR：", ex);
+                Common.Logger.Error("开启redis连接出错，ERROR：", ex);
             }
         }
 
